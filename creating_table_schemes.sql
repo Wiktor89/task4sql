@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS public.contacts(
 );
 
 COPY public.contacts(id,fio,phone,email,user_id)
-FROM 'D:\sql\contacts.csv' WITH DELIMITER ',' CSV;
+FROM 'D:\contacts.csv' WITH DELIMITER ',' CSV;
 
 CREATE TABLE IF NOT EXISTS public.contact_group
 (
@@ -53,4 +53,4 @@ CREATE TABLE IF NOT EXISTS public.contact_group
 );
 
 COPY public.contact_group(contact_id, group_id)
-FROM 'D:\sql\contacts_groups.csv' WITH DELIMITER ',' CSV;
+FROM 'D:\contacts_groups.csv' WITH DELIMITER ',' CSV;
