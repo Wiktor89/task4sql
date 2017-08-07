@@ -44,7 +44,7 @@ i INTEGER;
 contactC INTEGER;
 groupC INTEGER;
 BEGIN
-SELECT COUNT(contacts.id) FROM contacts INTO contactC;
+SELECT COUNT(contact_group.contact_id) FROM contact_group INTO contactC;
 SELECT COUNT(groups.id) FROM groups INTO groupC;
 i := contactC / groupC;
 RETURN i;
@@ -69,9 +69,9 @@ END;
 
 --  Функция вычисляет пользователя с количеством контактов < 10***
 CREATE FUNCTION user_with_contacts_min_10 ()
-RETURNS TABLE(count BIGINT, user_name CHAR(100)) AS $$
+RETURNS TABLE(user_name CHAR(100)) AS $$
 BEGIN
-RETURN QUERY SELECT COUNT( contacts.user_id ),users.login FROM contacts JOIN users ON contacts.user_id = users.id
+RETURN QUERY SELECT users.login FROM contacts JOIN users ON contacts.user_id = users.id
 GROUP BY contacts.user_id,users.login HAVING COUNT(contacts.user_id) < 10;
 END;
 $$ LANGUAGE plpgsql;

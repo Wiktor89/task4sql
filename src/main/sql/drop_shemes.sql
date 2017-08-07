@@ -1,0 +1,4 @@
+DROP TABLE groups CASCADE ;
+DROP TABLE contacts CASCADE ;
+DROP TABLE users CASCADE ;
+DROP TABLE contact_group CASCADE;

@@ -1,7 +1,3 @@
--- DROP TABLE groups CASCADE ;
--- DROP TABLE contacts CASCADE ;
--- DROP TABLE users CASCADE ;
--- DROP TABLE contact_group CASCADE;
 
 CREATE TABLE IF NOT EXISTS public.groups
 (
@@ -42,7 +38,7 @@ CREATE TABLE IF NOT EXISTS public.contacts(
 );
 
 COPY public.contacts(id,fio,phone,email,user_id)
-FROM 'D:\contacts.csv' WITH DELIMITER ',' CSV;
+FROM 'D:\sql\contacts.csv' WITH DELIMITER ',' CSV;
 
 CREATE TABLE IF NOT EXISTS public.contact_group
 (
@@ -53,4 +49,4 @@ CREATE TABLE IF NOT EXISTS public.contact_group
 );
 
 COPY public.contact_group(contact_id, group_id)
-FROM 'D:\contacts_groups.csv' WITH DELIMITER ',' CSV;
+FROM 'D:\sql\contacts_groups.csv' WITH DELIMITER ',' CSV;
