@@ -13,6 +13,7 @@ INSERT  INTO groups (title) VALUES
   ('b'),
   ('c');
 
+
 CREATE TABLE IF NOT EXISTS public.users
 (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -26,6 +27,7 @@ INSERT  INTO users (login, password) VALUES
   ('Филип','root'),
   ('Николай','root'),
   ('Жанна','root');
+
 
 CREATE TABLE IF NOT EXISTS public.contacts(
   id SERIAL  NOT NULL CONSTRAINT pk_contacts PRIMARY KEY,

@@ -8,6 +8,14 @@
     <groupId>task4.sql</groupId>
     <artifactId>task4.sql</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>maven-sql-plugin</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <build>
         <plugins>
@@ -15,51 +23,24 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
                 <version>1.5</version>
+
                 <dependencies>
                     <dependency>
-                        <groupId>org.postgresql</groupId>
+                        <groupId>postgresql</groupId>
                         <artifactId>postgresql</artifactId>
-                        <version>42.0.0</version>
+                        <version>RELEASE</version>
                     </dependency>
                 </dependencies>
 
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5432:postgres</url>
+                    <url>jdbc:postgresql://localhost:5432/postgres</url>
                     <username>postgres</username>
                     <password>root</password>
                 </configuration>
+
+
                 <executions>
-                    <execution>
-                        <id>drop-db-before-test-if-any</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <!-- Нужна другая база данных для удаления цели -->
-                            <url>jdbc:postgressql://localhost:5432:test</url>
-                            <autocommit>true</autocommit>
-                            <sqlCommand>drop database test</sqlCommand>
-                            <!-- Игнорировать ошибку, когда база данных недоступна -->
-                            <onError>continue</onError>
-                        </configuration>
-                    </execution>
-
-
-                    <execution>
-                        <id>create-db</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <url>jdbc:postgressql://localhost:5432:test</url>
-                            <!-- Нет транзакции -->
-                            <autocommit>true</autocommit>
-                            <sqlCommand>create database test</sqlCommand>
-                        </configuration>
-                    </execution>
-
 
                     <execution>
                         <id>create-schema</id>
@@ -76,33 +57,16 @@
                     </execution>
 
                     <execution>
-                        <id>create-data</id>
+                        <id>create-procedure</id>
                         <phase>process-test-resources</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <orderFile>ascending</orderFile>
-                            <fileset>
-                                <basedir>${basedir}</basedir>
-                                <includes>
-                                    <include>src/test/sql/test-data2.sql</include>
-                                    <include>src/test/sql/test-data1.sql</include>
-                                </includes>
-                            </fileset>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-
-                        <id>drop-db-after-test</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
                             <autocommit>true</autocommit>
-                            <sqlCommand>drop database createShema</sqlCommand>
+                            <srcFiles>
+                                <srcFile>src/main/sql/stored_procedures.sql</srcFile>
+                            </srcFiles>
                         </configuration>
                     </execution>
 
@@ -115,7 +79,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.0.0</version>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 

@@ -69,12 +69,12 @@ END;
 
 --  Функция вычисляет пользователя с количеством контактов < 10***
 CREATE FUNCTION user_with_contacts_min_10 ()
-RETURNS TABLE(user_name CHAR(100)) AS $$
+RETURNS TABLE(user_name CHAR(100)) AS '
 BEGIN
 RETURN QUERY SELECT users.login FROM contacts JOIN users ON contacts.user_id = users.id
 GROUP BY contacts.user_id,users.login HAVING COUNT(contacts.user_id) < 10;
 END;
-$$ LANGUAGE plpgsql;
+' LANGUAGE plpgsql;
 --  Функция вычисляет пользователя с количеством контактов < 10
 
 
